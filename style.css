@@ -1,0 +1,22 @@
+/* Phase 1 Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #fcfcfc;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.jumbotron {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.alert-info {
+    background-color: #e0f7fa;
+    border: none;
+    color: #006064;
+}
