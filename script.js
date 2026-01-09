@@ -44,9 +44,7 @@ function showSection(sectionId) {
     }
 }
 
-/**
- * Updates the Navbar appearance based on login status
- */
+
 function updateAuthUI(isLoggedIn) {
     const guestLinks = document.getElementById('guest-links');
     const adminNavItem = document.getElementById('admin-nav-item');
@@ -60,12 +58,10 @@ function updateAuthUI(isLoggedIn) {
     }
 }
 
-/**
- * Initialization and Event Listeners
- */
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- Registration Logic ---
+
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
         registerForm.addEventListener('submit', function(e) {
@@ -116,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Persistence Check ---
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
         updateAuthUI(true);
@@ -127,9 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showSection('home');
 });
 
-/**
- * Handles the logout process
- */
+
 function handleLogout() {
     localStorage.removeItem('currentUser');
     updateAuthUI(false);
