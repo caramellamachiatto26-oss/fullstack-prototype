@@ -1,5 +1,5 @@
 /**
- * Phase 2: LocalStorage & Authentication Logic
+ * LocalStorage & Authentication Logic
  */
 
 // Helper to get users from localStorage
