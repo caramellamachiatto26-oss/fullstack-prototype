@@ -66,61 +66,79 @@
         </section>
 
         <section id="accounts-section" class="d-none">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold">Accounts</h2>
-                <button class="btn btn-success" onclick="toggleAccountForm()">+ Add Account</button>
-            </div>
-
-            <div class="table-responsive mb-4">
-                <table class="table align-middle">
-                    <thead class="fw-bold border-bottom">
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Verified</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="accounts-list">
-                        </tbody>
-                </table>
-            </div>
-
-            <div id="account-form-container" class="card shadow-sm mx-auto d-none" style="max-width: 700px;">
-                <div class="card-header bg-light fw-semibold">Add/Edit Account</div>
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <form id="account-form">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="fw-bold mb-0">ACCOUNTS</h2>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal" onclick="openAccountModal()">Add Account</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="fw-bold border-bottom">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accounts-list">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="edit-account-section" class="d-none">
+            <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-4">EDIT ACCOUNT</h2>
+                    <form id="edit-account-form">
+                        <input type="hidden" id="edit-acc-id">
                         <div class="mb-3">
-                            <label class="form-label small">First Name</label>
-                            <input type="text" class="form-control" id="acc-fname" required>
+                            <label class="form-label">Title</label>
+                            <select class="form-select" id="edit-acc-title">
+                                <option value="Mr">Mr</option>
+                                <option value="Ms">Ms</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Dr">Dr</option>
+                                <option value="Prof">Prof</option>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small">Last Name</label>
-                            <input type="text" class="form-control" id="acc-lname" required>
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="edit-acc-fname" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small">Email</label>
-                            <input type="email" class="form-control" id="acc-email" required>
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="edit-acc-lname" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small">Password</label>
-                            <input type="password" class="form-control" id="acc-pass" placeholder="Leave blank to keep current">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="edit-acc-email" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small">Role</label>
-                            <select class="form-select" id="acc-role">
+                            <label class="form-label">Role</label>
+                            <select class="form-select" id="edit-acc-role">
                                 <option value="User">User</option>
                                 <option value="Admin">Admin</option>
                             </select>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="acc-verified">
-                            <label class="form-check-label small" for="acc-verified">Verified</label>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="edit-acc-status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
                         </div>
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 justify-content-end">
                             <button type="submit" class="btn btn-primary px-4">Save</button>
-                            <button type="button" class="btn btn-secondary px-4" onclick="toggleAccountForm()">Cancel</button>
+                            <button type="button" class="btn btn-secondary px-4" onclick="cancelEditAccount()">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -191,7 +209,7 @@
         <section id="departments-section" class="d-none">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold">Departments</h2>
-                <button class="btn btn-success" onclick="alert('Add Department modal/form coming soon!')">+ Add Department</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#departmentModal" onclick="openDepartmentModal()">+ Add Department</button>
             </div>
 
             <div class="table-responsive">
@@ -204,24 +222,31 @@
                         </tr>
                     </thead>
                     <tbody id="department-list">
-                        <tr class="border-bottom">
-                            <td class="py-3">Engineering</td>
-                            <td class="text-muted">Software team</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-outline-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="border-bottom">
-                            <td class="py-3">HR</td>
-                            <td class="text-muted">Human Resources</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-outline-danger">Delete</button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
+            </div>
+        </section>
+
+        <section id="edit-department-section" class="d-none">
+            <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-4">EDIT DEPARTMENT</h2>
+                    <form id="edit-department-section-form">
+                        <input type="hidden" id="edit-dept-section-id">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-dept-section-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" id="edit-dept-section-description" required>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-end">
+                            <button type="submit" class="btn btn-primary px-4">Save</button>
+                            <button type="button" class="btn btn-secondary px-4" onclick="cancelEditDepartment()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -247,6 +272,7 @@
                             <th>Type</th>
                             <th>Items</th>
                             <th>Status</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -260,10 +286,48 @@
             <h2 class="fw-bold mb-4">My Profile</h2>
             <div class="card shadow-sm" style="max-width: 600px;">
                 <div class="card-body p-4">
-                    <h5 class="fw-bold mb-3" id="profile-name">User Name</h5>
-                    <p class="mb-1"><strong>Email:</strong> <span id="profile-email">email@example.com</span></p>
-                    <p class="mb-4"><strong>Role:</strong> <span id="profile-role">User</span></p>
-                    <button class="btn btn-outline-primary px-3" onclick="alert('Edit feature coming soon!')">Edit Profile</button>
+                    <div id="profile-view">
+                        <h5 class="fw-bold mb-3" id="profile-name">User Name</h5>
+                        <p class="mb-1"><strong>Email:</strong> <span id="profile-email">email@example.com</span></p>
+                        <p class="mb-4"><strong>Role:</strong> <span id="profile-role">User</span></p>
+                        <button class="btn btn-outline-primary px-3" onclick="toggleEditProfileForm()">Edit Profile</button>
+                    </div>
+                    
+                    <div id="profile-edit-form" class="d-none">
+                        <h5 class="fw-bold mb-3">Edit Profile</h5>
+                        <form id="edit-profile-form">
+                            <div class="mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="edit-fname" required>
+                                <div class="invalid-feedback" id="edit-fname-error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="edit-lname" required>
+                                <div class="invalid-feedback" id="edit-lname-error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="edit-email" disabled>
+                                <small class="form-text text-muted">Email cannot be changed</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <input type="text" class="form-control" id="edit-role" disabled>
+                                <small class="form-text text-muted">Role cannot be changed</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="edit-password" placeholder="Leave blank to keep current password">
+                                <div class="invalid-feedback" id="edit-password-error"></div>
+                                <small class="form-text text-muted">Leave blank to keep current password</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                                <button type="button" class="btn btn-secondary px-4" onclick="toggleEditProfileForm()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -352,6 +416,202 @@
                 </div>
                 <div class="modal-footer border-0 justify-content-start">
                     <button type="button" class="btn btn-primary px-4" id="submitRequestBtn">Submit Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Request Modal -->
+    <div class="modal fade" id="editRequestModal" tabindex="-1" aria-labelledby="editRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="editRequestModalLabel">Edit Request Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-request-form">
+                        <input type="hidden" id="edit-req-id">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Type</label>
+                            <input type="text" class="form-control" id="edit-req-type" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Items</label>
+                            <div id="edit-req-items"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Status</label>
+                            <select class="form-select" id="edit-req-status">
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 justify-content-start">
+                    <button type="button" class="btn btn-primary px-4" onclick="handleEditRequestSubmission()">Save</button>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="accountModalLabel">Add/Edit Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="account-form">
+                        <input type="hidden" id="acc-id">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Title</label>
+                            <select class="form-select" id="acc-title">
+                                <option value="Mr">Mr</option>
+                                <option value="Ms">Ms</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Dr">Dr</option>
+                                <option value="Prof">Prof</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">First Name</label>
+                            <input type="text" class="form-control" id="acc-fname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Last Name</label>
+                            <input type="text" class="form-control" id="acc-lname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Email</label>
+                            <input type="email" class="form-control" id="acc-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Password</label>
+                            <input type="password" class="form-control" id="acc-pass" placeholder="Leave blank to keep current">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Role</label>
+                            <select class="form-select" id="acc-role">
+                                <option value="User">User</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Status</label>
+                            <select class="form-select" id="acc-status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 justify-content-start">
+                    <button type="button" class="btn btn-primary px-4" onclick="handleAccountSubmission()">Save</button>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Confirmation Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-danger" id="deleteAccountModalLabel">Confirm Account Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Are you sure you want to delete <strong id="delete-account-email"></strong>?</p>
+                    <p class="text-muted small mt-2 mb-0">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Department Modal -->
+    <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="departmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="departmentModalLabel">Add/Edit Department</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="department-form">
+                        <input type="hidden" id="dept-id">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Name</label>
+                            <input type="text" class="form-control" id="dept-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Description</label>
+                            <textarea class="form-control" id="dept-description" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 justify-content-start">
+                    <button type="button" class="btn btn-primary px-4" onclick="handleDepartmentSubmission()">Save</button>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Department Confirmation Modal -->
+    <div class="modal fade" id="deleteDepartmentModal" tabindex="-1" aria-labelledby="deleteDepartmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-danger" id="deleteDepartmentModalLabel">Confirm Department Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Are you sure you want to delete <strong id="delete-department-name"></strong>?</p>
+                    <p class="text-muted small mt-2 mb-0">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete-dept-btn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Department Modal -->
+    <div class="modal fade" id="editDepartmentModal" tabindex="-1" aria-labelledby="editDepartmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="editDepartmentModalLabel">EDIT DEPARTMENT</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-department-form">
+                        <input type="hidden" id="edit-dept-id">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-dept-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" id="edit-dept-description" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 justify-content-end">
+                    <button type="button" class="btn btn-primary px-4" onclick="handleEditDepartmentSubmission()">Save</button>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
